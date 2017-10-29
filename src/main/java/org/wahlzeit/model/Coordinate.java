@@ -2,9 +2,9 @@ package org.wahlzeit.model;
 
 
 public class Coordinate {
-	public double x;
-	public double y;
-	public double z;
+	public double x=0;
+	public double y=0;
+	public double z=0;
 	
 	double getDistance(Coordinate otherCoordinate){
 		double dx=x-otherCoordinate.x;

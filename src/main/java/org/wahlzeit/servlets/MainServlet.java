@@ -20,9 +20,10 @@
 
 package org.wahlzeit.servlets;
 
-import com.google.api.client.util.Charsets;
+import com.google.api.client.util.*;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.repackaged.com.google.api.client.util.Charsets;
 import com.google.common.io.CharStreams;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;

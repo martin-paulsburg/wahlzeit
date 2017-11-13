@@ -15,6 +15,9 @@ import org.junit.runners.*;
 	org.wahlzeit.model.TagsTest.class,
 	org.wahlzeit.model.UserStatusTest.class,
 	org.wahlzeit.model.ValueTest.class,
+	org.wahlzeit.model.ConstructionDefectPhotoTest.class,
+	org.wahlzeit.model.ConstructionDefectPhotoFactoryTest.class,
+	org.wahlzeit.model.ConstructionDefectPhotoManagerTest.class,
 	//model.persistence test
 	org.wahlzeit.model.persistence.AbstractAdapterTest.class,
 	org.wahlzeit.model.persistence.DatastoreAdapterTest.class,

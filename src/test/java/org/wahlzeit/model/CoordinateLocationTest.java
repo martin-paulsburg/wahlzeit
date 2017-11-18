@@ -21,10 +21,10 @@ public class CoordinateLocationTest {
 		 * Location1 same coordinates as location2 for Equals test location3 at 0-0-0
 		 * for distance test location 1,2 and 4 have a distance of 5.0 to location3
 		 */
-		location1 = new Location(new Coordinate(0.0, 3.0, 4.0));
-		location2 = new Location(new Coordinate(0.0, 3.0, 4.0));
-		location3 = new Location(new Coordinate());
-		location4 = new Location(new Coordinate(3.0, 4.0, 0.0));
+		location1 = new Location(new CartesianCoordinate(0.0, 3.0, 4.0));
+		location2 = new Location(new CartesianCoordinate(0.0, 3.0, 4.0));
+		location3 = new Location(new CartesianCoordinate());
+		location4 = new Location(new CartesianCoordinate(3.0, 4.0, 0.0));
 
 	}
 

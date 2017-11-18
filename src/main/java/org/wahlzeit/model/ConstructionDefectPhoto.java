@@ -9,3 +9,4 @@ public class ConstructionDefectPhoto extends Photo {
 		super(myId);
 	}
 }
+//TODO: add own atributes

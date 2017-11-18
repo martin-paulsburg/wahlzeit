@@ -1,26 +1,26 @@
 package org.wahlzeit.model;
-import org.wahlzeit.model.Coordinate;
+import org.wahlzeit.model.CartesianCoordinate;
 
 public class Location {
-	private Coordinate position;
+	private CartesianCoordinate position;
 	
 	public Location() {
-		position = new Coordinate();
+		position = new CartesianCoordinate();
 	}
 	
 	public Location(Location copy) {
-		position = new Coordinate(copy.getPosition());
+		position = new CartesianCoordinate(copy.getPosition());
 	}
 	
-	public Location(Coordinate position) {
+	public Location(CartesianCoordinate position) {
 		this.position = position;
 	}
 	
-	public Coordinate getPosition() {
+	public CartesianCoordinate getPosition() {
 		return position;
 	}
 
-	public void setPosition(Coordinate position) {
+	public void setPosition(CartesianCoordinate position) {
 		this.position = position;
 	}
 	

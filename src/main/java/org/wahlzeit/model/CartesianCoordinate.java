@@ -85,6 +85,9 @@ public class CartesianCoordinate implements Coordinate {
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		double radius = Math.sqrt(x*x+y*y+z*z);
+		if(Double.compare(radius, 0.0)==0) {
+			return new SphericCoordinate(0, 0, 0);
+		}
 		double latitude = 90-Math.asin(z/radius);
 		double longitude = Math.atan2(y, x);
 		return new SphericCoordinate(latitude, longitude, radius);

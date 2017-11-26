@@ -1,7 +1,7 @@
 package org.wahlzeit.model;
 
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 	private double x=0.0;
 	private double y=0.0;
 	private double z=0.0;
@@ -47,14 +47,6 @@ public class CartesianCoordinate implements Coordinate {
 		this.z = z;
 	}
 
-	private double doGetDistance(CartesianCoordinate otherCoordinate){
-		double dx=x-otherCoordinate.x;
-		double dy=y-otherCoordinate.y;
-		double dz=z-otherCoordinate.z;
-		double dist=Math.sqrt(dx*dx+dy*dy+dz*dz);
-		return dist;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
@@ -88,24 +80,9 @@ public class CartesianCoordinate implements Coordinate {
 		if(Double.compare(radius, 0.0)==0) {
 			return new SphericCoordinate(0, 0, 0);
 		}
-		double latitude = 90-Math.asin(z/radius);
-		double longitude = Math.atan2(y, x);
+		double latitude = Math.toDegrees(Math.asin(z/radius));
+		double longitude = Math.toDegrees(Math.atan2(y, x));
 		return new SphericCoordinate(latitude, longitude, radius);
-	}
-
-	@Override
-	public double getCartesianDistance(Coordinate compareCoordinate) {
-		return getDistance(compareCoordinate);
-	}
-
-	@Override
-	public double getSphericDistance(Coordinate compareCoordinate) {
-		return getDistance(compareCoordinate);
-	}
-
-	@Override
-	public double getDistance(Coordinate compareCoordinate) {
-		return doGetDistance(compareCoordinate.asCartesianCoordinate());
 	}
 
 	@Override

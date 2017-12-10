@@ -20,7 +20,7 @@ public class ConstructionDefectPhotoManager extends PhotoManager {
 	 */
 	public Photo getPhotoFromId(PhotoId id) {
 		if (id == null) {
-			return null;
+			throw new IllegalArgumentException("photo id is NULL");
 		}
 
 		Photo result = doGetPhotoFromId(id);

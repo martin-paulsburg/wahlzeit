@@ -1,33 +1,33 @@
 package org.wahlzeit.model;
 
+import java.io.InvalidObjectException;
 
 public abstract class AbstractCoordinate implements Coordinate {
 	
-	protected abstract void assertClassInvariants();
+	protected abstract void assertClassInvariants() throws InvalidObjectException;
 
 	@Override
-	public abstract CartesianCoordinate asCartesianCoordinate();
+	public abstract CartesianCoordinate asCartesianCoordinate() throws InvalidObjectException;
 
 	@Override
-	public abstract SphericCoordinate asSphericCoordinate();
+	public abstract SphericCoordinate asSphericCoordinate() throws InvalidObjectException;
 
 	@Override
-	public double getCartesianDistance(Coordinate compareCoordinate) {
+	public double getCartesianDistance(Coordinate compareCoordinate) throws InvalidObjectException, IllegalArgumentException {
 		assertClassInvariants();
 		assertIsNotNull(compareCoordinate);
-		
 		double dx = this.asCartesianCoordinate().getX() - compareCoordinate.asCartesianCoordinate().getX();
 		double dy = this.asCartesianCoordinate().getY() - compareCoordinate.asCartesianCoordinate().getY();
 		double dz = this.asCartesianCoordinate().getZ() - compareCoordinate.asCartesianCoordinate().getZ();
 		double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 		
-		//no invariantCheck necessary becaus no change is made
+		//no invariantCheck necessary because no change is made
 		
 		return dist;
 	}
 
 	@Override
-	public double getSphericDistance(Coordinate compareCoordinate) {
+	public double getSphericDistance(Coordinate compareCoordinate) throws InvalidObjectException {
 		assertClassInvariants();
 		assertIsNotNull(compareCoordinate);
 		
@@ -47,18 +47,20 @@ public abstract class AbstractCoordinate implements Coordinate {
 	}
 
 	@Override
-	public double getDistance(Coordinate compareCoordinate) {
+	public double getDistance(Coordinate compareCoordinate) throws IllegalArgumentException, InvalidObjectException {
 		
 		//no assertion checks necessary because all checs are made in the getCartesianDistance
 		
 		return this.getCartesianDistance(compareCoordinate);
 	}
 
-	protected void assertIsNotNull(Object obj) {
-		assert obj!=null : "argument is NULL!";
+	protected void assertIsNotNull (Object obj) throws IllegalArgumentException{
+		if(obj==null) {
+			throw new IllegalArgumentException("Object is NULL.");
+		}
 	}
 	
 	@Override
-	public abstract boolean isEqual(Coordinate comareCoordinate);
+	public abstract boolean isEqual(Coordinate comareCoordinate) throws InvalidObjectException;
 
 }

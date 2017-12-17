@@ -1,29 +1,50 @@
 package org.wahlzeit.model;
 
 import java.io.InvalidObjectException;
+import java.util.Hashtable;
 
 public class SphericCoordinate extends AbstractCoordinate {
 
 	private double latitude = 0.0;
 	private double longitude = 0.0;
 	private double radius = 0.0;
+	
+	protected static Hashtable<Integer, Coordinate> CoordinateTable;
 
-	public SphericCoordinate() {
+	public static Coordinate getCoordiante(double lat, double lon, double rad) {
+		// find coordinate if exists
+		Coordinate returnCoordinate = CoordinateTable.get(doHashCode(lat, lon, rad));
+		// if not make new one
+		if (returnCoordinate == null) {
+			try {
+				returnCoordinate = new SphericCoordinate(lat, lon, rad);
+			} catch (InvalidObjectException e) {
+				// TODO exception handling
+				//internal invalid object state (should never reached! -> destroy everything)
+				assert(false);
+			} catch (IllegalArgumentException e) {
+				throw new IllegalArgumentException(e);
+			}
+		}
+		// return
+		return returnCoordinate;
+	}
+
+	private static int doHashCode(double lat, double lon, double rad) {
+		int hash = 1;
+		hash = (int) (hash * 135 + ('a' + lat));
+		hash = (int) (hash * 51 + ('o' + lon));
+		hash = (int) (hash * 94 + ('r' + rad));
+		return hash;
+	}
+
+	@Override
+	public int hashCode() {
+		return doHashCode(latitude, longitude, radius);
 
 	}
 
-	public SphericCoordinate(SphericCoordinate copy) throws InvalidObjectException {
-		assertIsNotNull(copy);
-		latitude = copy.getLatitude();
-		longitude = copy.getLongitude();
-		radius = copy.getRadius();
-		assert Double.compare(this.latitude, copy.getLatitude()) == 0 : "Latitiude not set correctly";
-		assert Double.compare(this.longitude, copy.getLongitude()) == 0 : "longitude not set correctly";
-		assert Double.compare(this.radius, copy.getRadius()) == 0 : "radius not set correctly";
-		assertClassInvariants();
-	}
-
-	public SphericCoordinate(double latitude, double longitude, double radius) throws IllegalArgumentException, InvalidObjectException{
+	private SphericCoordinate(double latitude, double longitude, double radius) throws IllegalArgumentException, InvalidObjectException{
 		try {
 			assertLatitude(latitude);
 			assertLongitude(longitude);
@@ -32,6 +53,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 			throw new IllegalArgumentException(
 					"one of the Parameters is NULL or out of range @SphericCoordinate construktor", e);
 		}
+		CoordinateTable.put(hashCode(), this);
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
@@ -46,45 +68,9 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return latitude;
 	}
 
-	public void setRadius(double radius) throws IllegalArgumentException, InvalidObjectException {
-		assertClassInvariants();
-		try {
-			assertRadius(radius);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("@SphericCoordinate set Radius", e);
-		}
-		this.radius = radius;
-		assert Double.compare(this.radius, radius) == 0 : "radius not set correctly";
-		assertClassInvariants();
-	}
-
-	public void setLatitude(double latitude) throws IllegalArgumentException, InvalidObjectException {
-		assertClassInvariants();
-		try {
-			assertLatitude(latitude);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("@SphericCoordinate setLatitude", e);
-		}
-		this.latitude = latitude;
-		assert Double.compare(this.latitude, latitude) == 0 : "Latitiude not set correctly";
-		assertClassInvariants();
-	}
-
 	public double getLongitude() throws InvalidObjectException {
 		assertClassInvariants();
 		return longitude;
-	}
-
-	public void setLongitude(double longitude) throws IllegalArgumentException, InvalidObjectException {
-		assertClassInvariants();
-		try {
-			assertLongitude(longitude);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("@SphericCoordinate setLongitude", e);
-		}
-		this.longitude = longitude;
-		assert Double.compare(this.longitude, longitude) == 0 : "longitude not set correctly";
-		assertClassInvariants();
 	}
 
 	public double getRadius() throws InvalidObjectException {
@@ -98,7 +84,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		double x = radius * Math.sin(Math.toRadians(latitude)) * Math.cos(Math.toRadians(longitude));
 		double y = radius * Math.sin(Math.toRadians(latitude)) * Math.sin(Math.toRadians(longitude));
 		double z = radius * Math.cos(Math.toRadians(latitude));
-		return new CartesianCoordinate(x, y, z);
+		return (CartesianCoordinate) CartesianCoordinate.getCoordiante(x, y, z);
 	}
 
 	@Override
@@ -111,14 +97,11 @@ public class SphericCoordinate extends AbstractCoordinate {
 	public boolean isEqual(Coordinate compareCoordinate) throws InvalidObjectException {
 		assertClassInvariants();
 		SphericCoordinate testCoordinate = compareCoordinate.asSphericCoordinate();
-		return ((Double.compare(latitude, testCoordinate.latitude) == 0)
-				&& (Double.compare(longitude, testCoordinate.longitude) == 0)
-				&& (Double.compare(radius, testCoordinate.radius) == 0));
+		return testCoordinate == this;
 	}
 
 	@Override
 	protected void assertClassInvariants() throws InvalidObjectException {
-		//TODO: invalid conditions
 		try {
 			assertLatitude(latitude);
 			assertLongitude(longitude);

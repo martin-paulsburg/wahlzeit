@@ -1,33 +1,22 @@
 package org.wahlzeit.model;
-import java.io.InvalidObjectException;
 
-import org.wahlzeit.model.CartesianCoordinate;
 
 public class Location {
-	private CartesianCoordinate position;
-	
-	public Location() {
-		position = new CartesianCoordinate();
-	}
+	private Coordinate position;
 	
 	public Location(Location copy) {
-		try {
-			position = new CartesianCoordinate(copy.getPosition());
-		} catch (InvalidObjectException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
-		}
+		this.position = copy.position;
 	}
 	
 	public Location(CartesianCoordinate position) {
 		this.position = position;
 	}
 	
-	public CartesianCoordinate getPosition() {
+	public Coordinate getPosition() {
 		return position;
 	}
 
-	public void setPosition(CartesianCoordinate position) {
+	public void setPosition(Coordinate position) {
 		this.position = position;
 	}
 	

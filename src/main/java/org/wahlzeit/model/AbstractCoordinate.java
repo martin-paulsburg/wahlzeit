@@ -5,7 +5,7 @@ import java.io.InvalidObjectException;
 public abstract class AbstractCoordinate implements Coordinate {
 	
 	protected abstract void assertClassInvariants() throws InvalidObjectException;
-
+	
 	@Override
 	public abstract CartesianCoordinate asCartesianCoordinate() throws InvalidObjectException;
 

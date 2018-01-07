@@ -2,7 +2,10 @@ package org.wahlzeit.model;
 
 import java.io.InvalidObjectException;
 import java.util.Hashtable;
-
+@DesignPattern{
+	name = "Template method pattern",
+	participants = {"concrete implementation"}
+}
 public class SphericCoordinate extends AbstractCoordinate {
 
 	private double latitude = 0.0;

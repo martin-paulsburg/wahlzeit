@@ -34,6 +34,12 @@ import org.wahlzeit.services.ObjectManager;
 
 import java.util.Map;
 
+@DesignPattern{
+	name = "observer design",
+	participants = {"observer"}
+}
+
+
 /**
  * A photo represents a user-provided (uploaded) photo.
  */

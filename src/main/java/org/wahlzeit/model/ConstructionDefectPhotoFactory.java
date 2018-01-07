@@ -2,8 +2,19 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.services.LogBuilder;
 
+@DesignPattern{
+	name = "Factory",
+	participants = {"Factory"}
+}
+@DesignPattern{
+	name = "Singleton",
+	participants = {"Singleton"}
+}
+
 public class ConstructionDefectPhotoFactory extends PhotoFactory {
 	
+	
+
 	
 	/**
 	 *

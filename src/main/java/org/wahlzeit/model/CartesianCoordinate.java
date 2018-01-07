@@ -2,7 +2,10 @@ package org.wahlzeit.model;
 
 import java.io.InvalidObjectException;
 import java.util.Hashtable;
-
+@DesignPattern{
+	name = "Template method pattern",
+	participants = {"concrete implementation"}
+}
 public class CartesianCoordinate extends AbstractCoordinate {
 	private double x = 0.0;
 	private double y = 0.0;

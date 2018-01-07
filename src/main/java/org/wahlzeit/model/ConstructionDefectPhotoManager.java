@@ -2,6 +2,11 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.services.Persistent;
 
+@DesignPattern{
+	name = "Singleton",
+	participants = {"Singleton"}
+}
+
 public class ConstructionDefectPhotoManager extends PhotoManager {
 	/**
 	 *

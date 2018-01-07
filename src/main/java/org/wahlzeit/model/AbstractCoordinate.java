@@ -1,7 +1,10 @@
 package org.wahlzeit.model;
 
 import java.io.InvalidObjectException;
-
+@DesignPattern{
+	name = "Template method pattern",
+	participants = {"template"}
+}
 public abstract class AbstractCoordinate implements Coordinate {
 	
 	protected abstract void assertClassInvariants() throws InvalidObjectException;

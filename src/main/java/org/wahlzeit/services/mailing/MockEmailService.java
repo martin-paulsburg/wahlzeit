@@ -24,6 +24,13 @@ import org.wahlzeit.services.EmailAddress;
 
 import javax.mail.Message;
 
+
+@DesignPattern{
+	name = "null object pattern",
+	participants = {"Mock object"}
+}
+
+
 /**
  * Abstract superclass for non-trivial EmailServer implementations.
  */

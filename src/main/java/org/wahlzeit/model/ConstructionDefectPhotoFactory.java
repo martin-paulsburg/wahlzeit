@@ -1,6 +1,10 @@
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+
 import org.wahlzeit.services.LogBuilder;
+
+import com.google.appengine.repackaged.org.antlr.runtime.tree.DOTTreeGenerator;
 
 @DesignPattern{
 	name = "Factory",
@@ -13,7 +17,7 @@ import org.wahlzeit.services.LogBuilder;
 
 public class ConstructionDefectPhotoFactory extends PhotoFactory {
 	
-	
+	private HashMap<String, ConstructionDefectType> TypeMap;
 
 	
 	/**
@@ -52,9 +56,22 @@ public class ConstructionDefectPhotoFactory extends PhotoFactory {
 	 * @methodtype factory
 	 */
 	public Photo createPhoto() {
-		return new ConstructionDefectPhoto();
+		return createPhoto("Default");
 	}
-
+	
+	public Photo createPhoto(String type) {
+		Photo ret = new ConstructionDefectPhotoInstance();
+		((ConstructionDefectPhotoInstance) ret).setType(doGetTypeFromList(type));
+		return ret;
+	}
+	
+	private ConstructionDefectType doGetTypeFromList(String type) {
+		if(!TypeMap.containsKey(type)){
+			TypeMap.put(type, new ConstructionDefectType(type));
+		}
+		return TypeMap.get(type);
+	}
+	
 	/**
 	 * Creates a new photo with the specified id
 	 */
